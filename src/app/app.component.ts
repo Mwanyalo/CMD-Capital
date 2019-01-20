@@ -7,13 +7,18 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 
-  openNav() {
-    document.getElementById('mySidenav').style.width = '250px';
-    document.getElementById('main').style.marginLeft = '250px';
+  public sideMenu = 'close';
+
+  controlNav() {
+    if (this.sideMenu === 'close') {
+      this.sideMenu = 'open';
+      document.getElementById('mySidenav').style.width = '250px';
+      document.getElementById('main').style.marginLeft = '250px';
+    } else {
+      this.sideMenu = 'close';
+      document.getElementById('mySidenav').style.width = '0';
+      document.getElementById('main').style.marginLeft = '0';
+    }
   }
 
-  closeNav() {
-    document.getElementById('mySidenav').style.width = '0';
-    document.getElementById('main').style.marginLeft = '0';
-  }
 }

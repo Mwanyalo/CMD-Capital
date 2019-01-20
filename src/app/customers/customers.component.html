@@ -1,7 +1,8 @@
 <div class="row">
-  <div class="col-md-12 mb-3">
-    <select class="custom-select branch-select">
-      <option selected>Type</option>
+  <div class="col-md-12 mb-3 ">
+    <select class="custom-select branch-select" (change)="branchFilter($event.target.value)">
+      <option disabled selected>Type</option>
+      <option value="All Branches">All Branches</option>
       <option value="Branch 1">Branch 1</option>
       <option value="Branch 2">Branch 2</option>
       <option value="Branch 3">Branch 3</option>
@@ -20,25 +21,53 @@
   </div>
 
   <div class="col-md-12">
+
+    
+  <div *ngIf="this.customers.length === 0">
+    <img class="no-customer rounded mx-auto d-block" src="../../assets/images/fullLogol.png" />
+  </div>
+      
     <mdb-card class="mb-2" *ngFor="let customer of this.customers">
-      <div class="media" >
+      <div class="media">
         <img
-          class="d-flex mr-3"
-          src="https://mdbootstrap.com/img/Photos/Others/placeholder1.jpg"
+          class="d-flex mr-3 image-placeholder"
+          src="../../assets/images/fullLogol.png"
           alt="Customer Image"
+
         />
         <div class="media-body">
-          <h5 class="mt-0 font-weight-bold">{{customer.firstName}} {{customer.lastName}}</h5>
+          <h5 class="mt-0 font-weight-bold">
+            {{ customer.firstName }} {{ customer.lastName }}
+          </h5>
+          <!-- <button
+          type="button"
+          mdbBtn
+          class="btn-add"
+          data-toggle="modal"
+          (click)="frame.show(); editCustomer(customer)"
+          size="sm"
+          mdbWavesEffect
+        >
+          Edit Customer
+        </button> -->
           <div class="row">
             <div class="col-md-6 col-sm-12">
-              Email Address: {{customer.email}}
-            </div>
-            <div class="col-md-6 col-sm-12">Mobile Number: {{customer.mobileNumber}}</div>
-            <div class="col-md-6 col-sm-12">
-              <p><b> Branch: </b> <span class="branch"> {{customer.branch}}</span></p>
+              Email Address: {{ customer.email }}
             </div>
             <div class="col-md-6 col-sm-12">
-              <p><b> Loan limit: </b> <span class="branch"> KSH {{customer.loanLimit}}</span></p>
+              Mobile Number: {{ customer.mobileNumber }}
+            </div>
+            <div class="col-md-6 col-sm-12">
+              <p>
+                <b> Branch: </b>
+                <span class="branch"> {{ customer.branch }}</span>
+              </p>
+            </div>
+            <div class="col-md-6 col-sm-12">
+              <p>
+                <b> Loan limit: </b>
+                <span class="branch"> KSH {{ customer.loanLimit }}</span>
+              </p>
             </div>
           </div>
         </div>
@@ -47,7 +76,7 @@
   </div>
 </div>
 
-<!-- Form modal -->
+<!-- Add Form Model -->
 <div
   mdbModal
   #frame="mdbModal"
@@ -56,9 +85,8 @@
   tabindex="-1"
   role="dialog"
   aria-labelledby="myModalLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog" role="document">
+  aria-hidden="true">
+  <div class="modal-dialog"  keyboard="false" backdrop="static" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
         <h4 class="modal-title w-100 font-weight-bold">Add Customer</h4>
@@ -69,11 +97,10 @@
           aria-label="Close"
           (click)="frame.hide()"
         >
-          <span aria-hidden="true">&times;</span>
+          <span aria-hidde="true">&times;</span>
         </button>
       </div>
       <div class="modal-body ">
-
         <form [formGroup]="customerForm" (ngSubmit)="onSubmitCustomer()">
           <div class="md-form ">
             <input
@@ -81,10 +108,13 @@
               type="text"
               class="form-control validate"
               formControlName="firstName"
-              mdbInput 
+              mdbInput
               mdbValidate
             />
-            <label for="firstName" data-error="wrong" data-success="right">First Name</label>
+            <label for="firstName" data-error="wrong" data-success="right"
+              >First Name</label
+            >
+            <mdb-error *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)">First name is required</mdb-error>
           </div>
 
           <div class="md-form ">
@@ -93,10 +123,12 @@
               type="text"
               class="form-control validate"
               formControlName="lastName"
-              mdbInput 
+              mdbInput
               mdbValidate
             />
-            <label for="lastName" data-error="wrong" data-success="right">Last Name</label>
+            <label for="lastName" data-error="wrong" data-success="right"
+              >Last Name</label>
+              <mdb-error *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)">First last is required</mdb-error>
           </div>
 
           <div class="md-form ">
@@ -105,22 +137,36 @@
               type="email"
               class="form-control validate"
               formControlName="email"
-              mdbInput 
+              mdbInput
               mdbValidate
             />
-            <label for="email" data-error="wrong" data-success="right">Email Address</label>
+            <label for="email" data-error="wrong" data-success="right"
+              >Email Address</label
+            >
+            <mdb-error *ngIf="email.invalid && (email.touched)">
+                <span *ngIf="email.errors.required">Email is required</span>
+                <span *ngIf="email.errors.email">This email address is not valid</span>
+            </mdb-error>
           </div>
 
           <div class="md-form ">
             <input
               id="mobileNumber"
-              type="number"
+              type="text"
               class="form-control validate"
               formControlName="mobileNumber"
-              mdbInput 
+              mdbInput
               mdbValidate
+              maxlength="10"
             />
-            <label for="mobileNumber" data-error="wrong" data-success="right">Mobile Number</label>
+            <label for="mobileNumber" data-error="wrong" data-success="right"
+              >Mobile Number</label
+            >
+            <mdb-error *ngIf="mobileNumber.invalid && (mobileNumber.touched)">
+                <span *ngIf="mobileNumber.errors.required">Mobile number is required</span>
+                <span *ngIf="mobileNumber.errors.minlength">Mobile number has to be 10 digits</span>
+                <p *ngIf="mobileNumber.errors.invalidNum">Mobile number should start with 07...</p>
+            </mdb-error>
           </div>
 
           <div class="md-form ">
@@ -129,23 +175,38 @@
               type="number"
               class="form-control validate"
               formControlName="loanLimit"
-              mdbInput 
+              mdbInput
               mdbValidate
             />
-            <label for="loanLimit" data-error="wrong" data-success="right">Loan Limit</label>
+            <label for="loanLimit" data-error="wrong" data-success="right"
+              >Loan Limit</label
+            >
+            <mdb-error *ngIf="loanLimit.invalid && (loanLimit.touched)">
+                <span *ngIf="loanLimit.errors.required">Loan limit is required</span>
+                <span *ngIf="loanLimit.errors.max">Loan limit is 50,000</span>
+            </mdb-error>
           </div>
 
           <div class="md-form ">
             <select class="custom-select" formControlName="branch" required>
-              <option selected>Type</option>
+              <option value="" disabled selected>Choose Branch</option>
               <option value="Branch 1">Branch 1</option>
               <option value="Branch 2">Branch 2</option>
               <option value="Branch 3">Branch 3</option>
             </select>
+            <mdb-error *ngIf="branch.invalid && (branch.dirty || branch.touched)">Branch is required</mdb-error>
           </div>
-
+          
           <div class="modal-footer d-flex justify-content-center">
-            <button type="submit" mdbBtn color="indigo" class="waves-light" mdbWavesEffect>
+            <button
+              type="submit"
+              mdbBtn
+              color="indigo"
+              class="waves-light"
+              mdbWavesEffect
+              (click)="frame.hide()"
+              [disabled]="!customerForm.valid"
+            >
               Send <i class="fa fa-paper-plane-o ml-1"></i>
             </button>
           </div>

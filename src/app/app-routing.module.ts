@@ -5,11 +5,11 @@ import { CustomersComponent } from './customers/customers.component';
 import { LoansComponent } from './loans/loans.component';
 
 const routes: Routes = [
- { path: 'customers', component: CustomersComponent },
+ { path: '', component: CustomersComponent },
  { path: 'loans', component: LoansComponent },
 
   // otherwise redirect to home
-  { path: '**', redirectTo: '/customers', pathMatch: 'full' },
+  { path: '**', redirectTo: '/', pathMatch: 'full' },
 ];
 
 @NgModule({

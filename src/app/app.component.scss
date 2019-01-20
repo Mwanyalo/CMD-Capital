@@ -1,3 +1,22 @@
+.topnav {
+  padding: 0;
+  display: flex;
+}
+
+.topnav > li {
+  padding: 10px;
+  text-align: center;
+  color: #000000;
+  box-sizing: border-box;
+  background-color: #fff;
+  list-style-type: none;
+  font-size: 18px;
+}
+
+.space {
+  flex: 1;
+}
+
 .sidenav {
   height: 100%;
   width: 0;
@@ -5,39 +24,68 @@
   z-index: 1;
   top: 0;
   left: 0;
-  background-color: #111;
+  background-color: #fff;
   overflow-x: hidden;
   transition: 0.5s;
-  padding-top: 60px;
 }
 
 .sidenav a {
-  padding: 8px 8px 8px 32px;
+  padding: 16px 8px 16px 30px;
   text-decoration: none;
   font-size: 25px;
-  color: #818181;
+  color: rgb(173, 174, 175);
   display: block;
   transition: 0.3s;
 }
 
 .sidenav a:hover {
-  color: #f1f1f1;
+  color: rgb(115, 67, 25);
 }
 
-.sidenav .closebtn {
-  position: absolute;
-  top: 0;
-  right: 25px;
-  font-size: 36px;
-  margin-left: 50px;
+.sidenav .active {
+  width: 100%;
+  background-color:  #F2F5F8 !important;
+  border-left-style: solid;
+  border-left-color: #000000 ;
 }
+
+.sidenav .active a {
+  color: #000000 !important;
+}
+
+.navImg {
+  position: relative;
+  top: 0;
+  width: 100%;
+  background-color: #e76727;
+  align-content: center;
+}
+
+.navImg img {
+  padding: 10px 0 10px 0;
+}
+
+.rounded-circle {
+  width: 50px;
+  height: 50px;
+}
+
+.h7 {
+  color: #e76727;
+}
+
 
 #main {
   transition: margin-left .5s;
-  padding: 16px;
+}
+
+.container-fluid{
+  margin-top: 10px;
 }
 
 @media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
+  .sidenav {padding-top: 0;}
   .sidenav a {font-size: 18px;}
 }
+
+

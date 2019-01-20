@@ -2,15 +2,16 @@
   color: #fff;
   background-color: #e76727;
   float: right;
-  padding-left: 5%;
-  padding-right: 5%;
+  padding-left: 4%;
+  padding-right: 4%;
   text-transform: none;
+  border-radius: 4px;
+  font-size: 13px;
 }
 
 .branch-select {
-  width: 100px;
+  width: 120px;
 }
-
 
 .branch{
   color: #fff;
@@ -21,7 +22,12 @@
   border-radius: 100px;
 }
 
-img{
-  width: 100px;
-  height: 100px;
+.image-placeholder {
+  width: 20%;
+  height: 20%;
+}
+
+.no-customer{
+  width: 50%;
+  height: 50%;
 }

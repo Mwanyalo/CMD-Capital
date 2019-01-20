@@ -10,25 +10,19 @@ export class CustomersService {
   private nextId: number;
   public customers: Array<Customer>;
 
-  constructor() {
-     const customers = this.getCustomers();
+  constructor() {}
 
+  public addCustomer(model: Customer) {
+      const customers = this.getCustomers();
       if (customers.length === 0) {
         this.nextId = 0;
       } else {
         const maxId = customers[customers.length - 1].id;
         this.nextId = maxId + 1;
       }
-  }
-
-  public addCustomer(model: Customer) {
-    const promise = new Promise((resolve, reject) => {
       model.id = this.nextId;
-      const customers = this.getCustomers();
       customers.push(model);
       this.setLocalStorageCustomers(customers);
-    });
-    return promise;
   }
 
 
@@ -37,7 +31,7 @@ export class CustomersService {
     return localStorageItem == null ? [] : localStorageItem.customers;
   }
 
-  private setLocalStorageCustomers(customers: Customer[]) {
+  public setLocalStorageCustomers(customers: Customer[]) {
     return localStorage.setItem('customers', JSON.stringify({ customers: customers }));
   }
 

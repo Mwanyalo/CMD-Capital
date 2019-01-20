@@ -1,14 +1,48 @@
+<!-- Side Menu Bar-->
 <div id="mySidenav" class="sidenav">
-  <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a>
-  <a href="/customers">Customers</a>
-  <a href="/loans">Loans</a> 
+  <div class="navImg d-flex justify-content-center">
+    <img src="../assets/images/4GCLogo.png" />
+  </div>
+  <span class="" style="list-style-type:none">
+    <li routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      class="justify-content-center" >
+      <a routerLink="/"><i class="fa fa-users" aria-hidden="true"></i> Customers</a>
+    </li>
+    <li routerLinkActive="active" class="justify-content-center">
+      <a routerLink="/loans"
+        ><i class="fa fa-book" aria-hidden="true"></i> Loans</a
+      >
+    </li>
+  </span>
 </div>
 
-<div class="container-fluid">
-  <div id="main">
-    <span style="font-size:30px;cursor:pointer" (click)="openNav()"
-      >&#9776;</span
-    >
-    <router-outlet></router-outlet>
-  </div>
+<div id="main">
+  <!-- Main -->
+  <nav>
+    <ul class="topnav">
+      <li>
+        <span style="font-size:34px;cursor:pointer" (click)="controlNav()"
+          >&#9776;</span
+        >
+      </li>
+      <li>Kenya</li>
+      <li>Uganda</li>
+      <li class="space"></li>
+      <li>
+        <div class="h6 m-0">Welcome Baernett!</div>
+        <span class="h7 float-right">Logout</span>
+      </li>
+      <li>
+        <img
+          src="https://mdbootstrap.com/img/Photos/Avatars/img%20(27).jpg"
+          alt="Admin image"
+          class="rounded-circle img-fluid"
+        />
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="container-fluid"><router-outlet></router-outlet></div>
 </div>
