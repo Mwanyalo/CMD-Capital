@@ -12,7 +12,7 @@
       mdbBtn
       class="btn-add"
       data-toggle="modal"
-      (click)="frame.show()"
+      (click)="frame.show(); clearCustomer()"
       size="sm"
       mdbWavesEffect
     >
@@ -35,21 +35,11 @@
           alt="Customer Image"
 
         />
-        <div class="media-body">
+        <div class="media-body mt-2">
           <h5 class="mt-0 font-weight-bold">
             {{ customer.firstName }} {{ customer.lastName }}
           </h5>
-          <!-- <button
-          type="button"
-          mdbBtn
-          class="btn-add"
-          data-toggle="modal"
-          (click)="frame.show(); editCustomer(customer)"
-          size="sm"
-          mdbWavesEffect
-        >
-          Edit Customer
-        </button> -->
+         
           <div class="row">
             <div class="col-md-6 col-sm-12">
               Email Address: {{ customer.email }}
@@ -67,7 +57,21 @@
               <p>
                 <b> Loan limit: </b>
                 <span class="branch"> KSH {{ customer.loanLimit }}</span>
+                <button
+                type="button"
+                mdbBtn
+                class="btn-edit"
+                data-toggle="modal"
+                (click)="frame.show(); editCustomer(customer)"
+                size="sm"
+                color="default"
+                outline="true"
+                mdbWavesEffect
+              >
+                Edit Loan
+              </button>
               </p>
+       
             </div>
           </div>
         </div>
@@ -110,6 +114,7 @@
               formControlName="firstName"
               mdbInput
               mdbValidate
+              disabled="this.Edit"
             />
             <label for="firstName" data-error="wrong" data-success="right"
               >First Name</label
@@ -125,6 +130,7 @@
               formControlName="lastName"
               mdbInput
               mdbValidate
+              disabled="Edit"
             />
             <label for="lastName" data-error="wrong" data-success="right"
               >Last Name</label>
@@ -139,6 +145,7 @@
               formControlName="email"
               mdbInput
               mdbValidate
+              disabled="Edit"
             />
             <label for="email" data-error="wrong" data-success="right"
               >Email Address</label
@@ -158,6 +165,7 @@
               mdbInput
               mdbValidate
               maxlength="10"
+              disabled="Edit"
             />
             <label for="mobileNumber" data-error="wrong" data-success="right"
               >Mobile Number</label
@@ -188,7 +196,7 @@
           </div>
 
           <div class="md-form ">
-            <select class="custom-select" formControlName="branch" required>
+            <select class="custom-select" disabled="Edit" formControlName="branch" required>
               <option value="" disabled selected>Choose Branch</option>
               <option value="Branch 1">Branch 1</option>
               <option value="Branch 2">Branch 2</option>

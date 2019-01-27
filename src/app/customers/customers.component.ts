@@ -87,19 +87,24 @@ export class CustomersComponent implements OnInit {
     this.customers = this.customersService.getCustomers();
   }
 
-  // editCustomer(customer) {
-  //   this.Edit = true;
-  //   this.id = customer.id;
+  clearCustomer() {
+    this.createForm();
+    this.Edit = false;
+  }
 
-  //   this.customerForm.patchValue({
-  //     firstName: customer.firstName,
-  //     lastName: customer.lastName,
-  //     email: customer.email,
-  //     mobileNumber: customer.mobileNumber,
-  //     branch: customer.branch,
-  //     loanLimit: customer.loanLimit
-  //   });
-  // }
+  editCustomer(customer) {
+    this.Edit = true;
+    this.id = customer.id;
+
+    this.customerForm.patchValue({
+      firstName: customer.firstName,
+      lastName: customer.lastName,
+      email: customer.email,
+      mobileNumber: customer.mobileNumber,
+      branch: customer.branch,
+      loanLimit: customer.loanLimit
+    });
+  }
 
   onSubmitCustomer() {
     this.submitForm = true;
